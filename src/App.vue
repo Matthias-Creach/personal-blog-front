@@ -24,6 +24,9 @@
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
 
+                    <!-- to choose language -->
+                    <b-form-select v-model="locale" :options="languages"></b-form-select>
+
                     <!-- To register -->
                     <b-nav-item-dropdown no-caret right v-if="!currentUser">
                         <!-- Using 'button-content' slot -->
@@ -54,6 +57,17 @@
 
 export default {
   name: 'App',
+  data(){
+    this.$i18n.locale = 'en';
+    return{
+        locale: 'en',
+        languages: [
+          { value: 'en', text: 'EN' },
+          { value: 'fr', text: 'FR' },
+          { value: 'nl', text: 'NL' },
+        ]
+    }
+  },
   computed: {
     currentUser(){
         return this.$store.state.auth.user;
@@ -69,6 +83,11 @@ export default {
     logOut(){
         this.$store.dispatch('auth/logout');
         this.$router.push('/login');
+    }
+  },
+  watch:{
+    locale(val){
+        this.$i18n.locale = val;
     }
   }
 }

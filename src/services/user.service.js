@@ -16,6 +16,12 @@ class UserService {
 		});
 	}
 
+	updateUser(userId, user){
+		return axios.put(API_URL + userId, user, {headers: authHeader()}).then(response => {
+			localStorage.setItem('user', JSON.stringify(response.data));
+		});
+	}
+
 	deleteUser(userId){
 		return axios.delete(API_URL + userId, {headers: authHeader()});
 	}

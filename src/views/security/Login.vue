@@ -16,7 +16,7 @@
 						class="form-control"
 						name="username"
 					/>
-					<div v-if="errors.has('username')" class="alert alert-danger" role="alert">
+					<div v-if="veeErrors.has('username')" class="alert alert-danger" role="alert">
 						Password is required
 					</div>
 				</div>
@@ -29,7 +29,7 @@
 						class="form-control" 
 						name="password"
 					/>
-					<div v-if="errors.has('password')" class="alert alert-danger" role="alert">
+					<div v-if="veeErrors.has('password')" class="alert alert-danger" role="alert">
 						Password is required
 					</div>
 				</div>
