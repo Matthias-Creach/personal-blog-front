@@ -5,7 +5,7 @@
                 <b-col>
                     <div  :style="indent">
                         <a href="" @click.prevent="refreshArchitecture(path)">
-                            {{name}}
+                            {{name}} <span v-if="files && files.length > 0"> - {{ files.length }} Files</span>
                         </a>
                     </div>
                 </b-col>
@@ -29,6 +29,7 @@
             v-bind:key="node.name"
 
             :nodes="node.children"
+            :files="node.files"
             :name="node.name"
             :path="node.path"
             :depth="depth+1"
@@ -46,7 +47,7 @@
 <script>
     export default{
         name: "PersonalTreeMenu",
-        props: ['name', 'path', 'nodes', 'depth'],
+        props: ['name', 'path', 'nodes', 'files', 'depth'],
         data(){
             return{
                 picture: '',
