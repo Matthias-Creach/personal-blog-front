@@ -1,8 +1,9 @@
 export default class Article{
-	constructor(title, content, isPrivate, releaseDate){
-		this.title = title;
-		this.content = content;
-		this.isPrivate = isPrivate;
+	constructor(id, title, content, isPrivate, releaseDate){
+		this.id          = id;
+		this.title       = title;
+		this.content     = content;
+		this.isPrivate   = isPrivate;
 		this.releaseDate = releaseDate;
 	}
 }

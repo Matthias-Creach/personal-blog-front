@@ -4,70 +4,75 @@
         <h3>Photographs</h3>
         <hr>
 
-        <!-- Carousels -->
+        <b-row>
+            <b-col cols="0" sm="4" >
 
-        <b-carousel
-            id="carousel"
-            v-model="slideNumber"
-            :interval="4000"
-            controls
-            background="#ababab"
-            img-width="1024"
-            img-height="480"
-            style="text-shadow: 1px 1px 2px #333;"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-        >
+            <h6>Dossiers</h6>
+            <hr>
 
-            <b-carousel-slide v-for="file in files"  v-bind:key="file.url" :img-src="file.url" class="slide"></b-carousel-slide>
+            <ol class="folder-list" v-if="folders && folders.length > 0">
+                <li v-for="folder in folders" :key="folder.name"  @click="loadFiles(folder)">
+                    <a v-bind:class="[{ active: folder.name === activeFolder.name }]">{{folder.name}}</a>
+                </li>
+            </ol>
 
-        </b-carousel>
-
-        <!-- Folders -->
-        
-        <b-row class="text-center">
-            <b-col v-for="photo in photographs" v-bind:key="photo.key">
-                <b-img thumbnail :src="photo.url" fluid alt="Responsive image"></b-img>
             </b-col>
-        </b-row>
+
+            <b-col v-if="activeFolder" class="text-center" cols="12" sm="8">
+                <div class="img-container" v-for="file in this.activeFolder.files" :key="file.name">
+                    <img class="my-img" :src="file.url" @click="zoomIn(file.url)">
+                </div>
+            </b-col>
+
+        </b-row> 
+
+        <div v-if="activeUrl" id="img-modal">
+            <div id="img-modal-container">
+                <img :src="this.activeUrl" @click="activeUrl = null">
+            </div>
+        </div>
     </b-container>
 </template>
 
 <script>
 
-import FolderService     from '../../services/folder/folder.service';
+import FolderService from '../../services/folder/folder.service';
 
 export default{
     name: 'Photograph',
     data(){
         return{
-            files: [],
 
-            slideNumber: 0,
-            sliding: null,
+            folderPath: 'root/images/',
+            folders: [],
+
+            activeFolder: null,
+            activeUrl: null,
 
             urlS3: 'https://blog-manon.s3.eu-west-3.amazonaws.com/',
-            carouselFolderUrl: 'images/carousel/',
-            photographs: [],
         }
     },
 
     mounted(){
 
-        FolderService.getFolder(this.carouselFolderUrl).then(response => {
-            this.files = response.files;
-            console.log(response.files)
+        FolderService.getFolder(this.folderPath).then(response => {
+            console.log(response)
+            this.folders = response.children;
+            this.activeFolder = response.children[0];
         });
+
     },
     methods:{
         getImage(key){
             return require(this.urlS3 + key);
         },
-        onSlideStart() {
-            this.sliding = true
+
+        loadFiles(folder){
+            this.activeFolder = folder
         },
-        onSlideEnd() {
-            this.sliding = false
+
+        zoomIn(url){
+           this.activeUrl = url;
         }
     }
 }
@@ -75,14 +80,74 @@ export default{
 </script>
 
 <style>
-#carousel{
+
+/* Modal styles */
+#img-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+
+    background-color: #b6b6ccab;
+    z-index: 3000;
+}
+
+#img-modal-container{
+
+    width: 70%;
+    height: 90%;
+
     margin: auto;
+    margin-top: 2.5%;
+
+    text-align: center;
 }
 
-.slide{
+#img-modal-container img{
+    max-width: 100%;
+    max-height: 100%;
+    cursor: pointer;
+}
+
+/* Folders list style*/
+.folder-list{
+    list-style-type: none;
+    
+}
+
+/* Folders list style*/
+.folder-list li a:hover{
+    cursor: pointer;
+    color: #6c2e43;
+    border-bottom: 1px solid #6c2e43;
+}
+
+.folder-list li .active{
+    color: #6c2e43;
+    border-bottom: 1px solid #6c2e43;
+    cursor: default;
+}
+
+/* Images styles */
+
+.img-container{
+    display: inline-block;
     overflow: hidden;
+    width: 300px;
+    height: 300px;
+    margin: 1%;
 
-    height: 480px!important;
-    width: 480px!important;
+    border: 1px solid #86737a73;
+    background-color: #5d233629;
 }
+
+.my-img{
+    max-height: 100%;
+    margin: auto;
+    cursor: pointer;
+}
+
 </style>

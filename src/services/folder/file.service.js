@@ -5,9 +5,9 @@ const API_URL = 'http://localhost:8080/blog/files/';
 
 class FileService{
 
-	addFile(upload, path){
+	addFile(upload, path, name){
 		return axios
-			.post(API_URL + "?path=" + path, upload, {headers: authHeader()})
+			.post(API_URL + "?path=" + path + (name ? "&name=" + name : ""), upload, {headers: authHeader()})
 			.then(response => { return response.data })
 	}
 

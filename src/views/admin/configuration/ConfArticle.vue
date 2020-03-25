@@ -6,7 +6,7 @@
             <b-button variant="primary" size="sm" class="mr-2" :to="{ name: 'article', params: {id: row.item.id} }">
                 <font-awesome-icon icon="eye"/>
             </b-button>
-            <b-button variant="primary" size="sm" @click="row.toggleDetails" class="mr-2">
+            <b-button variant="primary" size="sm" :to="{ name: 'edit-article', params: {id: row.item.id} }" class="mr-2">
                 <font-awesome-icon icon="edit"/>
             </b-button>
             <b-button variant="danger" size="sm" @click.prevent="deleteArticle(row.item)" class="mr-2">

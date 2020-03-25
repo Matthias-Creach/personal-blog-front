@@ -13,6 +13,10 @@
             <b-button variant="primary" size="sm" class="mr-2 text-right" v-b-modal.modal-prevent-closing>
                 <font-awesome-icon icon="folder-plus"/>
             </b-button>
+
+            <b-button variant="primary" size="sm" class="mr-2 text-right" v-b-modal.modal-prevent-closing>
+                <font-awesome-icon icon="image"/>
+            </b-button>
         </b-breadcrumb>
 
         <PersonalTreeMenu
@@ -84,8 +88,9 @@ export default{
         }
     },
     mounted(){
-        FolderService.getFolder('images/').then(response => {
+        FolderService.getFolder('root/').then(response => {
             this.folder = response;
+            this.sections = response.path.split('/')
         });
     },
     methods:{
@@ -99,14 +104,14 @@ export default{
         },
 
         addFolder(name){
-            let folder = new Folder(name, this.folder.path, null)
-            FolderService.addFolder(folder, this.folder.path).then(() => {
+            let folder = new Folder(name, null, this.folder.path, null)
+            FolderService.addFolder(folder).then(() => {
                 this.refreshArchitecture(this.folder.path);
             });
         },
 
         deleteFolder(n){
-            FolderService.deleteFolder(n).then(() => {
+            FolderService.deleteFolder(n, false).then(() => {
                 this.refreshArchitecture(this.folder.path);
             });
         },

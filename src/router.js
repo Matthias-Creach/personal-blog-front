@@ -37,6 +37,8 @@ export const router = new Router({
             name: 'edit-profile',
             component: () => import('./views/security/Profile.vue')
         },
+
+
         {
             path: '/articles',
             name: 'articles',
@@ -48,11 +50,21 @@ export const router = new Router({
             props: true,
             component: () => import('./views/articles/Article.vue')
         },
+
+
         {
             path: '/new-article',
             name: 'new-article',
             component: () => import('./views/articles/NewArticle.vue')
         },
+        {
+            path: '/edit-article/:id',
+            name: 'edit-article',
+            props: true,
+            component: () => import('./views/articles/NewArticle.vue')
+        },
+
+
         {
             path: '/photographs',
             name: 'photographs',
@@ -62,6 +74,13 @@ export const router = new Router({
             path: '/admin',
             name: 'admin',
             component: () => import('./views/admin/Admin.vue')
+        },
+
+        /** Errors **/
+        {
+            path: '/error',
+            name: 'Error',
+            component: () => import('./views/errors/Error.vue')
         }
     ]
 });

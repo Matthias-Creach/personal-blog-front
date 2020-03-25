@@ -17,15 +17,15 @@ class FolderService{
 			.then(response => {	return response.data; });
 	}
 
-	addFolder(folder, parentPath){
+	addFolder(newFolder){
 		return axios
-			.post(API_URL + "?parentPath=" + parentPath, folder, {headers: authHeader()}
+			.post(API_URL, newFolder, {headers: authHeader()}
 		);
 	}
 
-	deleteFolder(path){
+	deleteFolder(path, forced){
 		return axios
-			.delete(API_URL + "?path=" + path, {headers: authHeader()});
+			.delete(API_URL + "?path=" + path + "&forced=" + forced, {headers: authHeader()});
 	}
 
 }

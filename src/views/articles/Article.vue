@@ -16,7 +16,7 @@ export default{
 	props: ['id'],
 	data(){
 		return{
-			article: new Article('', '', '', '')
+			article: new Article(null, '', '', '', '')
 		}
 	}, 
 	mounted(){

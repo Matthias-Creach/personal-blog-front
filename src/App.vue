@@ -1,15 +1,15 @@
 <template>
 
     <b-container id="app">
-        <b-navbar toggleable="lg" type="dark" variant="info" fixed="top">
-            <b-navbar-brand to="/"><font-awesome-icon icon="home"/></b-navbar-brand>
+        <b-navbar toggleable="lg" type="dark" fixed="top" class="personal-bg">
+            <b-navbar-brand to="/"><font-awesome-icon class="color-white" icon="home"/></b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
-                    <b-nav-item to="/articles">Articles</b-nav-item>
-                    <b-nav-item to="/photographs">Photographs</b-nav-item>
+                    <b-nav-item class="color-white" to="/articles">Articles</b-nav-item>
+                    <b-nav-item class="color-white" to="/photographs">Photographs</b-nav-item>
 
                     <!-- About us -->
                     <b-nav-item-dropdown left>
@@ -38,9 +38,9 @@
                     </b-nav-item-dropdown>
 
                     <!-- When register -->
-                        <b-nav-item v-if="showAdminBoard" to="/admin"><font-awesome-icon icon="cog"/></b-nav-item>
-                        <b-nav-item v-if="currentUser"    to="/profile"><font-awesome-icon icon="user"/></b-nav-item>
-                        <b-nav-item v-if="currentUser" right href @click.prevent="logOut"><font-awesome-icon icon="sign-out-alt"/></b-nav-item>
+                        <b-nav-item v-if="showAdminBoard" to="/admin"><font-awesome-icon class="color-white" icon="cog"/></b-nav-item>
+                        <b-nav-item v-if="currentUser"    to="/profile"><font-awesome-icon class="color-white" icon="user"/></b-nav-item>
+                        <b-nav-item v-if="currentUser" right href @click.prevent="logOut"><font-awesome-icon class="color-white" icon="sign-out-alt"/></b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
@@ -94,7 +94,16 @@ export default {
 </script>
 
 <style>
-    .nav-bar-margin-top{
-        margin-top: 50px;
-    }
+
+.personal-bg{
+    background-color: #805262;
+}
+
+.color-white{
+    color: white;
+}
+
+.nav-bar-margin-top{
+    margin-top: 50px;
+}
 </style>

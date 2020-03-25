@@ -48,6 +48,12 @@ class ArticleService{
 		);
 	}
 
+	updateArticle(article){
+		return axios
+			.put(API_URL + article.id, article, {headers: authHeader()})
+			.then(response => {return response.data});
+	}
+
 }
 
 export default new ArticleService();
